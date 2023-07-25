@@ -1,0 +1,18 @@
+app: dreamnet
+service: dreamnet
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+
+functions:
+  firstFunction:
+    handler: src/firstFunction.handler
+    events:
+      - httpApi:
+          path: /
+          method: get
+plugins:
+  - serverless-offline
+  - serverless-plugin-typescript
