@@ -17,6 +17,7 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "mongoose": "^7.4.1",
     "serverless-dotenv-plugin": "^6.0.0",
     "validator": "^13.9.0"

@@ -10,12 +10,6 @@ provider:
   stage: ${opt:stage, 'dev'}
 
 functions:
-  firstFunction:
-    handler: src/handlers/firstFunction.handler
-    events:
-      - httpApi:
-          path: /
-          method: get
   createUser:
     handler: src/handlers/createUser.handler
     events:
