@@ -4,15 +4,26 @@ frameworkVersion: "3"
 
 provider:
   name: aws
-  runtime: nodejs16.x
+  runtime: nodejs18.x
+  memorySize: 128
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
 
 functions:
   firstFunction:
-    handler: src/firstFunction.handler
+    handler: src/handlers/firstFunction.handler
     events:
       - httpApi:
           path: /
           method: get
+  createUser:
+    handler: src/handlers/createUser.handler
+    events:
+      - httpApi:
+          path: /users
+          method: POST
+
 plugins:
   - serverless-offline
   - serverless-plugin-typescript
+  - serverless-dotenv-plugin
