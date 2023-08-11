@@ -13,15 +13,30 @@ export const handler = async (event, context) => {
       password,
     };
     userObj = await User.create(userObj);
-    return {
+
+    const response = {
       statusCode: 201,
+      headers: {
+        'Access-Control-Allow-Origin': 'http://localhost:4000',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'OPTIONS, POST',
+      },
       body: JSON.stringify(userObj),
     };
+
+    return response;
   } catch (err) {
     console.error(err);
-    return {
+    const errorResponse = {
       statusCode: 500,
+      headers: {
+        'Access-Control-Allow-Origin': 'http://localhost:4000',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'OPTIONS, POST',
+      },
       body: JSON.stringify({ error: (err as Error).message }), // Use type assertion here
     };
+
+    return errorResponse;
   }
 };
