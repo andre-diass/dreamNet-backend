@@ -1,12 +1,14 @@
+import { APIGatewayProxyHandler } from 'aws-lambda';
 import { connectDatabase } from '../../database/db';
 import { User } from '../../models/user';
 
-export const handler = async (event, context) => {
+export const handler: APIGatewayProxyHandler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   try {
     await connectDatabase();
-    const { email, password, name } = JSON.parse(event.body);
+    const requestBody = event.body || '{}';
+    const { email, password, name } = JSON.parse(requestBody);
     let userObj = {
       email,
       name,
