@@ -1,18 +1,29 @@
-app: dreamnet
-service: dreamnet
-frameworkVersion: "3"
+service: serverlessSetup
 
 provider:
   name: aws
-  runtime: nodejs16.x
+  runtime: nodejs14.x
+  region: us-west-1
 
+# functions
 functions:
-  firstFunction:
-    handler: src/firstFunction.handler
+  hello:
+    handler: src/functions/hello.handler
     events:
-      - httpApi:
-          path: /
+      - http:
+          path: serverlessSetup/hello
           method: get
+  createUser:
+    handler: src/functions/createUser.handler
+    events:
+      - http:
+          path: serverlessSetup/create
+          method: post
+
+# Serverless plugins
 plugins:
-  - serverless-offline
   - serverless-plugin-typescript
+  - serverless-offline
+  - serverless-dotenv-plugin
+# Resources your functions use
+

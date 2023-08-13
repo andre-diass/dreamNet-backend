@@ -1,2 +1,6 @@
+node_modules 
+dist
+coverage
+.env
 .serverless
-node_modules
+.build
