@@ -9,11 +9,11 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
     await connectDatabase();
 
     const requestBody = event.body || '{}';
-    const { productName, productDescription, productPrice } = JSON.parse(requestBody);
+    const { name, description, price } = JSON.parse(requestBody);
     let productObj = {
-      productName,
-      productDescription,
-      productPrice,
+      name,
+      description,
+      price,
     };
     productObj = await Product.create(productObj);
 
@@ -33,7 +33,7 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
     const errorResponse = {
       statusCode: 500,
       headers: {
-        'Access-Control-Allow-Origin': 'http://localhost:4000',
+        'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'OPTIONS, POST',
       },

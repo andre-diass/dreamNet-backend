@@ -1,25 +1,23 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
-import validator from 'validator';
 
 export interface IProduct extends Document {
-  productName: string;
-  productDescription: string;
-  productPrice: string;
+  name: string;
+  description: string;
+  price: string;
 }
 
 const ProductSchema: Schema<IProduct> = new mongoose.Schema({
-  productName: {
+  name: {
     type: String,
     trim: true,
     required: [true, 'Please add a name'],
   },
-  productDescription: {
+  description: {
     type: String,
-    default: null,
-    unique: true,
+    trim: true,
     select: true,
   },
-  productPrice: {
+  price: {
     type: String,
     required: [true, 'Please set a password'],
   },
