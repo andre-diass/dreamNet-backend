@@ -1,20 +1,21 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import { connectDatabase } from '../../database/db';
-import { User } from '../../models/user';
+import { Product } from '../../models/product';
 
 export const handler: APIGatewayProxyHandler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   try {
     await connectDatabase();
+
     const requestBody = event.body || '{}';
-    const { email, password, name } = JSON.parse(requestBody);
-    let userObj = {
-      email,
-      name,
-      password,
+    const { productName, productDescription, productPrice } = JSON.parse(requestBody);
+    let productObj = {
+      productName,
+      productDescription,
+      productPrice,
     };
-    userObj = await User.create(userObj);
+    productObj = await Product.create(productObj);
 
     const response = {
       statusCode: 201,
@@ -23,7 +24,7 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'OPTIONS, POST',
       },
-      body: JSON.stringify(userObj),
+      body: JSON.stringify(productObj),
     };
 
     return response;

@@ -13,11 +13,11 @@ functions:
       - http:
           path: serverlessSetup/hello
           method: get
-  createUser:
-    handler: src/functions/createUser.handler
+  createProduct:
+    handler: src/functions/createProduct.handler
     events:
       - http:
-          path: serverlessSetup/create
+          path: serverlessSetup/createProduct
           method: post
 
 # Serverless plugins
