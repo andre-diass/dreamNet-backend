@@ -9,11 +9,12 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
     await connectDatabase();
 
     const requestBody = event.body || '{}';
-    const { name, description, price } = JSON.parse(requestBody);
+    const { name, description, price, userId } = JSON.parse(requestBody);
     let productObj = {
       name,
       description,
       price,
+      userId,
     };
     productObj = await Product.create(productObj);
 

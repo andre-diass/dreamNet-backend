@@ -4,6 +4,7 @@ export interface IProduct extends Document {
   name: string;
   description: string;
   price: string;
+  userId: string;
 }
 
 const ProductSchema: Schema<IProduct> = new mongoose.Schema({
@@ -20,6 +21,9 @@ const ProductSchema: Schema<IProduct> = new mongoose.Schema({
   price: {
     type: String,
     required: [true, 'Please set a password'],
+  },
+  userId: {
+    type: String,
   },
 });
 
