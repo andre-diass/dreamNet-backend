@@ -7,11 +7,11 @@ provider:
 
 # functions
 functions:
-  hello:
-    handler: src/functions/hello.handler
+  getProduct:
+    handler: src/functions/getProduct.handler
     events:
       - http:
-          path: serverlessSetup/hello
+          path: serverlessSetup/getProduct
           method: get
   createProduct:
     handler: src/functions/createProduct.handler
