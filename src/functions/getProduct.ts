@@ -1,13 +1,14 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { MongoClient } from 'mongodb';
 
-export const handler = async (_event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const client = await MongoClient.connect(process.env.DB as string);
     const db = client.db('test');
     const collection = db.collection('products');
 
-    const result = await collection.find({}).toArray();
+    const paramName = event.queryStringParameters?.userId;
+    const result = await collection.find({ userId: paramName }).toArray();
 
     client.close();
 
