@@ -8,10 +8,10 @@ provider:
 # functions
 functions:
   getProduct:
-    handler: src/functions/getProduct.handler
+    handler: src/functions/getProducts.handler
     events:
       - http:
-          path: serverlessSetup/getProduct
+          path: serverlessSetup/getProducts
           method: get
   createProduct:
     handler: src/functions/createProduct.handler
