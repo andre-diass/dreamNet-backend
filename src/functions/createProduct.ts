@@ -1,6 +1,6 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
-import { connectDatabase } from '../../database/db';
-import { Product } from '../../models/product';
+import { connectDatabase } from '../database/db';
+import { Product } from '../models/product';
 
 export const handler: APIGatewayProxyHandler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
