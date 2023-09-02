@@ -10,4 +10,10 @@ export default class ProductRepository {
     const result = await productModel.find({ userId: userID }).exec();
     return result;
   };
+
+  createProduct = async (productObj: IProduct): Promise<IProduct> => {
+    const productModel = await this.db.getModel();
+    const result = await productModel.create(productObj);
+    return result;
+  };
 }

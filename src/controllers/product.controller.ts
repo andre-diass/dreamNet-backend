@@ -1,7 +1,6 @@
 import { APIGatewayProxyResult } from 'aws-lambda';
-import mongoose from 'mongoose';
 import { connectDatabase } from '../database/db';
-import { Product, ProductSchema } from '../models/product';
+import { Product } from '../models/product';
 import buildResponse from '../utils/buildResponse';
 import { IProduct } from '../utils/_types';
 import ProductRepository from '../repositories/products.repository';
@@ -28,8 +27,7 @@ export class ProductController {
 
   createProduct = async (productObj: IProduct): Promise<APIGatewayProxyResult> => {
     try {
-      await connectDatabase();
-      const result = await Product.create(productObj);
+      const result = await this.productRepository.createProduct(productObj);
 
       const response = buildResponse.buildSuccessfullResponse(result);
       return response;
