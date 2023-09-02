@@ -11,7 +11,7 @@ class BuildResponse {
     };
   };
 
-  builFailedResponse = err => {
+  buildErrorResponse = err => {
     return {
       statusCode: 500,
       headers: {

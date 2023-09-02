@@ -1,12 +1,10 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
-import { connectDatabase } from '../database/db';
 import { ProductController } from '../controllers/product.controller';
 import { IProduct } from '../utils/_types';
+import buildResponse from '../utils/buildResponse';
 
 export const handler: APIGatewayProxyHandler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
-
-  await connectDatabase();
 
   const requestBody = event.body || '{}';
   const { name, description, price, userId } = JSON.parse(requestBody);
@@ -18,7 +16,12 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
   };
   const product = new ProductController();
 
-  const response = product.createProduct(productObj);
-
-  return response;
+  try {
+    const result = await product.createProduct(productObj);
+    const response = buildResponse.buildSuccessfullResponse(result);
+    return response;
+  } catch (error) {
+    const failedResponse = buildResponse.buildErrorResponse(error);
+    return failedResponse;
+  }
 };
