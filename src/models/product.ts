@@ -7,7 +7,7 @@ export interface IProduct extends Document {
   userId: string;
 }
 
-const ProductSchema: Schema<IProduct> = new mongoose.Schema({
+export const ProductSchema: Schema<IProduct> = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
