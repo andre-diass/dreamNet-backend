@@ -9,6 +9,11 @@ export class ProductController {
     return result;
   };
 
+  getProduct = async (productID: string | undefined): Promise<IProduct> => {
+    const result = await this.productRepository.getProduct(productID);
+    return result;
+  };
+
   createProduct = async (productObj: IProduct): Promise<IProduct> => {
     const result = await this.productRepository.createProduct(productObj);
     return result;

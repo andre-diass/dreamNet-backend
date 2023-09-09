@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import mongoose, { Model, Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 let conn: typeof mongoose | null = null;
 export const connectDatabase = async function Connect(): Promise<typeof mongoose> {

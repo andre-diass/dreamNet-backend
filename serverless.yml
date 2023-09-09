@@ -7,17 +7,23 @@ provider:
 
 # functions
 functions:
-  getProduct:
+  getProducts:
     handler: src/functions/getProducts.handler
     events:
       - http:
-          path: serverlessSetup/getProducts
+          path: serverless/getProducts
+          method: get
+  getProduct:
+    handler: src/functions/getProduct.handler
+    events:
+      - http:
+          path: serverless/getProduct
           method: get
   createProduct:
     handler: src/functions/createProduct.handler
     events:
       - http:
-          path: serverlessSetup/createProduct
+          path: serverless/createProduct
           method: post
 
 # Serverless plugins
