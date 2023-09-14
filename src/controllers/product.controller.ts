@@ -18,4 +18,9 @@ export class ProductController {
     const result = await this.productRepository.createProduct(productObj);
     return result;
   };
+
+  updateProduct = async (productObj: Partial<IProduct>, productID: string): Promise<IProduct | null> => {
+    const result = await this.productRepository.updateProduct(productObj, productID);
+    return result;
+  };
 }

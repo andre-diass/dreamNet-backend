@@ -25,6 +25,12 @@ functions:
       - http:
           path: serverless/createProduct
           method: post
+  updateProduct:
+    handler: src/functions/updateProduct.handler
+    events:
+      - http:
+          path: serverless/updateProduct
+          method: put
 
 # Serverless plugins
 plugins:
