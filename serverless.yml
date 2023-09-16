@@ -31,6 +31,12 @@ functions:
       - http:
           path: serverless/updateProduct
           method: put
+  deleteProduct:
+    handler: src/functions/deleteProduct.handler
+    events:
+      - http:
+          path: serverless/deleteProduct
+          method: delete
 
 # Serverless plugins
 plugins:
