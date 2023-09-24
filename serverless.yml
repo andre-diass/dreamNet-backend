@@ -37,11 +37,17 @@ functions:
       - http:
           path: serverless/deleteProduct
           method: delete
-
+  s3Test:
+    handler: src/functions/testS3.handler
+    events:
+      - s3:
+          bucket: upload.csv.local4567
+          event: s3:ObjectCreated:*
+          rules:
+            - suffix: .csv
 # Serverless plugins
 plugins:
   - serverless-plugin-typescript
   - serverless-offline
   - serverless-dotenv-plugin
-# Resources your functions use
-
+  - serverless-s3-local
