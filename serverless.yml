@@ -38,13 +38,19 @@ functions:
           path: serverless/deleteProduct
           method: delete
   s3Test:
-    handler: src/functions/testS3.handler
+    handler: src/functions/s3Function.handler
     events:
       - s3:
-          bucket: upload.csv.local4567
+          bucket: upload-csv-local4567
           event: s3:ObjectCreated:*
           rules:
             - suffix: .csv
+  simulateS3Trigger:
+    handler: src/functions/simulateS3Trigger.handler
+    events:
+      - http:
+          path: serverless/triggerS3
+          method: post
 # Serverless plugins
 plugins:
   - serverless-plugin-typescript
