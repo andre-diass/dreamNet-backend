@@ -4,7 +4,14 @@ provider:
   name: aws
   runtime: nodejs18.x
   region: us-west-1
-
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - s3:GetObject
+          Resource:
+            - arn:aws:s3:::upload-csv-4567/*
 # functions
 functions:
   getProducts:
@@ -41,7 +48,7 @@ functions:
     handler: src/functions/s3Function.handler
     events:
       - s3:
-          bucket: upload-csv-local4567
+          bucket: upload-csv-4567
           event: s3:ObjectCreated:*
           rules:
             - suffix: .csv
