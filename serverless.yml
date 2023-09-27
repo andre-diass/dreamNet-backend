@@ -1,5 +1,21 @@
 service: serverlessSetup
 
+resources:
+  extensions:
+    S3BucketUploadcsvlocal4567:
+      Properties:
+        CorsConfiguration:
+          CorsRules:
+            - AllowedMethods:
+                - POST
+                - PUT
+                - GET
+                - HEAD
+              AllowedOrigins:
+                - '*'
+              AllowedHeaders:
+                - '*'
+
 provider:
   name: aws
   runtime: nodejs18.x
