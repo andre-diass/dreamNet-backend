@@ -13,7 +13,6 @@ export default class ProductRepository {
 
   getProduct = async (productID: string | undefined): Promise<IProduct> => {
     const productModel = await this.db.getModel();
-
     const result = (await productModel.findById({ _id: productID }).exec()) as IProduct;
     return result;
   };
@@ -32,7 +31,12 @@ export default class ProductRepository {
     if (!result) {
       return null;
     }
+    return result;
+  };
 
+  deleteProduct = async (productID: string | undefined): Promise<IProduct> => {
+    const productModel = await this.db.getModel();
+    const result = (await productModel.findByIdAndDelete({ _id: productID })) as IProduct;
     return result;
   };
 }

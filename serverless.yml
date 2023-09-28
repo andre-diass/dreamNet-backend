@@ -1,10 +1,33 @@
 service: serverlessSetup
 
+resources:
+  extensions:
+    S3BucketUploadpng4567:
+      Properties:
+        CorsConfiguration:
+          CorsRules:
+            - AllowedMethods:
+                - POST
+                - PUT
+                - GET
+                - HEAD
+              AllowedOrigins:
+                - '*'
+              AllowedHeaders:
+                - '*'
+
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs18.x
   region: us-west-1
-
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - s3:GetObject
+          Resource:
+            - arn:aws:s3:::upload-png-4567/*
 # functions
 functions:
   getProducts:
@@ -31,11 +54,29 @@ functions:
       - http:
           path: serverless/updateProduct
           method: put
-
+  deleteProduct:
+    handler: src/functions/deleteProduct.handler
+    events:
+      - http:
+          path: serverless/deleteProduct
+          method: delete
+  s3Test:
+    handler: src/functions/s3Function.handler
+    events:
+      - s3:
+          bucket: upload-png-4567
+          event: s3:ObjectCreated:*
+          rules:
+            - suffix: .png
+  simulateS3Trigger:
+    handler: src/functions/simulateS3Trigger.handler
+    events:
+      - http:
+          path: serverless/triggerS3
+          method: post
 # Serverless plugins
 plugins:
   - serverless-plugin-typescript
   - serverless-offline
   - serverless-dotenv-plugin
-# Resources your functions use
-
+  - serverless-s3-local

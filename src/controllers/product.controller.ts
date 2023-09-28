@@ -23,4 +23,9 @@ export class ProductController {
     const result = await this.productRepository.updateProduct(productObj, productID);
     return result;
   };
+
+  deleteProduct = async (productID: string | undefined): Promise<IProduct> => {
+    const result = await this.productRepository.deleteProduct(productID);
+    return result;
+  };
 }
