@@ -22,8 +22,8 @@ export const handler = async (event: S3Event): Promise<void> => {
   const s3Event = event.Records[0].s3;
   const bucketName = s3Event.bucket.name;
   const bucketKey = decodeURIComponent(s3Event.object.key.replace(/\+/g, ' '));
-  // console.log(s3Event);
+  console.log(s3Event);
 
-  const fileData = await getCsvDataFromBucket(bucketName, bucketKey);
-  console.log(fileData);
+  // const fileData = await getCsvDataFromBucket(bucketName, bucketKey);
+  // console.log(fileData);
 };

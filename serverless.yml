@@ -2,7 +2,7 @@ service: serverlessSetup
 
 resources:
   extensions:
-    S3BucketUploadcsvlocal4567:
+    S3BucketUploadpng4567:
       Properties:
         CorsConfiguration:
           CorsRules:
@@ -27,7 +27,7 @@ provider:
           Action:
             - s3:GetObject
           Resource:
-            - arn:aws:s3:::upload-csv-4567/*
+            - arn:aws:s3:::upload-png-4567/*
 # functions
 functions:
   getProducts:
@@ -64,10 +64,10 @@ functions:
     handler: src/functions/s3Function.handler
     events:
       - s3:
-          bucket: upload-csv-4567
+          bucket: upload-png-4567
           event: s3:ObjectCreated:*
           rules:
-            - suffix: .csv
+            - suffix: .png
   simulateS3Trigger:
     handler: src/functions/simulateS3Trigger.handler
     events:
