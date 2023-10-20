@@ -7,12 +7,13 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   const requestBody = event.body || '{}';
-  const { name, description, price, userId } = JSON.parse(requestBody);
+  const { name, description, price, userId, imageLinks } = JSON.parse(requestBody);
   const productObj: IProduct = {
     name,
     description,
     price,
     userId,
+    imageLinks,
   };
   const product = new ProductController();
 
