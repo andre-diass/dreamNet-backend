@@ -1,7 +1,7 @@
 class BuildResponse {
-  buildSuccessfullResponse = result => {
+  buildSuccessfullResponse = (statusCodes, result) => {
     return {
-      statusCode: 200,
+      statusCode: statusCodes,
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
@@ -11,9 +11,9 @@ class BuildResponse {
     };
   };
 
-  buildErrorResponse = err => {
+  buildErrorResponse = (statusCodes, err) => {
     return {
-      statusCode: 500,
+      statusCode: statusCodes,
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',

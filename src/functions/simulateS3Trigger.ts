@@ -3,6 +3,7 @@ import axios from 'axios';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import buildResponse from '../utils/buildResponse';
 import createLocalS3Client from '../utils/createLocalS3client';
+import { ClientErrorCodes, SuccessfullCodes } from '../utils/statusCode';
 
 export async function makeUploadToBucket(imageUrl: string, fileName: string): Promise<void> {
   // const client = createLocalS3Client();
@@ -29,10 +30,12 @@ export const handler = async (_event: APIGatewayProxyEvent): Promise<APIGatewayP
     const fileName = 'image.png';
 
     makeUploadToBucket(imageUrl, fileName);
-    const response = buildResponse.buildSuccessfullResponse({ simulateS3Trigger: 'HTTP request succesfull' });
+    const response = buildResponse.buildSuccessfullResponse(SuccessfullCodes.Created, {
+      simulateS3Trigger: 'HTTP request succesfull',
+    });
     return response;
   } catch (error) {
-    const failedResponse = buildResponse.buildErrorResponse(error);
+    const failedResponse = buildResponse.buildErrorResponse(ClientErrorCodes.BadRequest, error);
     return failedResponse;
   }
 };
