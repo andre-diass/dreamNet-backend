@@ -60,6 +60,13 @@ functions:
       - http:
           path: serverless/deleteProduct
           method: delete
+  addCategory:
+    handler: src/functions/addCategory.handler
+    events:
+      - http:
+          path: serverless/addCategory
+          method: post
+
   s3Test:
     handler: src/functions/s3Function.handler
     events:
