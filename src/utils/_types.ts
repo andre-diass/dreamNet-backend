@@ -5,3 +5,7 @@ export interface IProduct {
   userId: string;
   imageLinks: Array<string>;
 }
+
+export interface ICategory {
+  category: string;
+}
