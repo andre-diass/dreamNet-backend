@@ -66,6 +66,12 @@ functions:
       - http:
           path: serverless/addCategory
           method: post
+  login:
+    handler: src/functions/users/login.handler
+    events:
+      - http:
+          path: serverless/login
+          method: get
 
   s3Test:
     handler: src/functions/s3/s3Function.handler
