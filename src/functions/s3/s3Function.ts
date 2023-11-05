@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { APIGatewayProxyEvent, APIGatewayProxyResult, S3Event } from 'aws-lambda';
 import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
-import createLocalS3Client from '../utils/createLocalS3client';
+import createLocalS3Client from '../../utils/createLocalS3client';
 
 export async function getCsvDataFromBucket(name, key) {
   // const client = createLocalS3Client();

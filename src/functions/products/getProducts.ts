@@ -1,7 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { ProductController } from '../controllers/product.controller';
-import buildResponse from '../utils/buildResponse';
-import { ClientErrorCodes, SuccessfullCodes } from '../utils/statusCode';
+import { ProductController } from '../../controllers/product.controller';
+import buildResponse from '../../utils/buildResponse';
+import { ClientErrorCodes, SuccessfullCodes } from '../../utils/statusCode';
 
 export const handler = async (_event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const userId = _event.queryStringParameters?.userId;

@@ -1,25 +1,26 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
-import { ProductController } from '../controllers/product.controller';
-import { IProduct } from '../utils/_types';
-import buildResponse from '../utils/buildResponse';
-import { SuccessfullCodes, ClientErrorCodes } from '../utils/statusCode';
+import { ProductController } from '../../controllers/product.controller';
+import { IProduct } from '../../utils/_types';
+import buildResponse from '../../utils/buildResponse';
+import { ClientErrorCodes, SuccessfullCodes } from '../../utils/statusCode';
 
 export const handler: APIGatewayProxyHandler = async (event, context) => {
-  context.callbackWaitsForEmptyEventLoop = false;
-
+  const productId = event.queryStringParameters?.productId as string;
   const requestBody = event.body || '{}';
-  const { name, description, price, userId, imageLinks } = JSON.parse(requestBody);
-  const productObj: IProduct = {
+  const { name, description, price, imageLinks } = JSON.parse(requestBody);
+
+  const productObj: Partial<IProduct> = {
     name,
     description,
     price,
-    userId,
     imageLinks,
   };
   const product = new ProductController();
 
+  console.log(imageLinks);
+
   try {
-    const result = await product.createProduct(productObj);
+    const result = await product.updateProduct(productObj, productId);
     const response = buildResponse.buildSuccessfullResponse(SuccessfullCodes.Created, result);
     return response;
   } catch (error) {
