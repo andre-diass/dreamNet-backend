@@ -5,6 +5,7 @@ export interface IProduct extends Document {
   description: string;
   price: string;
   userId: string;
+  imageLinks: Array<string>;
 }
 
 export const ProductSchema: Schema<IProduct> = new mongoose.Schema({
@@ -17,6 +18,7 @@ export const ProductSchema: Schema<IProduct> = new mongoose.Schema({
     type: String,
     trim: true,
     select: true,
+    sparse: true,
   },
   price: {
     type: String,
@@ -24,6 +26,9 @@ export const ProductSchema: Schema<IProduct> = new mongoose.Schema({
   },
   userId: {
     type: String,
+  },
+  imageLinks: {
+    type: [String],
   },
 });
 
