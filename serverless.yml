@@ -20,6 +20,7 @@ provider:
   name: aws
   runtime: nodejs18.x
   region: us-west-1
+  timeout: 30
   iam:
     role:
       statements:
@@ -30,36 +31,43 @@ provider:
             - arn:aws:s3:::upload-png-4567/*
 # functions
 functions:
+  authorize:
+    handler: src/functions/users/authorize.handler
   getProducts:
     handler: src/functions/products/getProducts.handler
     events:
       - http:
           path: serverless/getProducts
           method: get
+          authorizer: authorize
   getProduct:
     handler: src/functions/products/getProduct.handler
     events:
       - http:
           path: serverless/getProduct
           method: get
+          authorizer: authorize
   createProduct:
     handler: src/functions/products/createProduct.handler
     events:
       - http:
           path: serverless/createProduct
           method: post
+          authorizer: authorize
   updateProduct:
     handler: src/functions/products/updateProduct.handler
     events:
       - http:
           path: serverless/updateProduct
           method: put
+          authorizer: authorize
   deleteProduct:
     handler: src/functions/products/deleteProduct.handler
     events:
       - http:
           path: serverless/deleteProduct
           method: delete
+          authorizer: authorize
   addCategory:
     handler: src/functions/categories/addCategory.handler
     events:

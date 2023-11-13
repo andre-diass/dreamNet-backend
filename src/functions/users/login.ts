@@ -5,11 +5,8 @@ import { SuccessfullCodes } from '../../utils/statusCode';
 
 export const handler: APIGatewayProxyHandler = async (event, context) => {
   const secret = 'ssshhh';
-  const user = {
-    id: 123,
-    scopes: ['users:read'],
-  };
-  const token = jwt.sign({ user }, secret);
+
+  const token = jwt.sign({ id: 23 }, secret);
   console.log(`JWT issued: ${token}`);
 
   const response = buildResponse.buildSuccessfullResponse(SuccessfullCodes.Created, token);

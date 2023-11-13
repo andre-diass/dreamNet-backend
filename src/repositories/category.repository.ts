@@ -11,3 +11,5 @@ export default class CategoryRepository {
     return result;
   };
 }
+
+// refatorar pra getCollection
