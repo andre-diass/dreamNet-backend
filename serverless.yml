@@ -39,35 +39,35 @@ functions:
       - http:
           path: serverless/getProducts
           method: get
-          authorizer: authorize
+
   getProduct:
     handler: src/functions/products/getProduct.handler
     events:
       - http:
           path: serverless/getProduct
           method: get
-          authorizer: authorize
+
   createProduct:
     handler: src/functions/products/createProduct.handler
     events:
       - http:
           path: serverless/createProduct
           method: post
-          authorizer: authorize
+
   updateProduct:
     handler: src/functions/products/updateProduct.handler
     events:
       - http:
           path: serverless/updateProduct
           method: put
-          authorizer: authorize
+
   deleteProduct:
     handler: src/functions/products/deleteProduct.handler
     events:
       - http:
           path: serverless/deleteProduct
           method: delete
-          authorizer: authorize
+
   addCategory:
     handler: src/functions/categories/addCategory.handler
     events:
@@ -80,7 +80,12 @@ functions:
       - http:
           path: serverless/login
           method: get
-
+  getUser:
+    handler: src/functions/users/getUser.handler
+    events:
+      - http:
+          path: serverless/user/{email}
+          method: get
   s3Test:
     handler: src/functions/s3/s3Function.handler
     events:
