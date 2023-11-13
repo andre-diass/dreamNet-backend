@@ -1,5 +1,5 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
-import { CategoryController } from '../../controllers/category.controller';
+import { CategoryController } from '../../services/category.controller';
 import { ICategory } from '../../utils/_types';
 import buildResponse from '../../utils/buildResponse';
 import { SuccessfullCodes, ClientErrorCodes } from '../../utils/statusCode';

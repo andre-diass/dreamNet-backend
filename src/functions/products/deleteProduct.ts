@@ -1,5 +1,5 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { ProductController } from '../../controllers/product.controller';
+import { ProductController } from '../../services/product.controller';
 import buildResponse from '../../utils/buildResponse';
 import { ClientErrorCodes, SuccessfullCodes } from '../../utils/statusCode';
 
