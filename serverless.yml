@@ -74,6 +74,12 @@ functions:
       - http:
           path: serverless/addCategory
           method: post
+  getCategories:
+    handler: src/functions/categories/getCategories.handler
+    events:
+      - http:
+          path: serverless/getCategories/{userId}
+          method: get
   login:
     handler: src/functions/users/login.handler
     events:

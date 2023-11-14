@@ -8,4 +8,9 @@ export class CategoryController {
     const result = await this.categoryRepository.createCategory(categoryObj);
     return result;
   };
+
+  getCategories = async (userID: string | undefined): Promise<ICategory[]> => {
+    const result = await this.categoryRepository.getCategories(userID);
+    return result;
+  };
 }

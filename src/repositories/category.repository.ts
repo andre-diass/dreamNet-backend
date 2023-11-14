@@ -10,6 +10,12 @@ export default class CategoryRepository {
     const result = await categoryModel.create(categoryObj);
     return result;
   };
+
+  getCategories = async (userID: string | undefined): Promise<ICategory[]> => {
+    const productModel = await this.db.getModel();
+    const result = await productModel.find({ userId: userID }).exec();
+    return result;
+  };
 }
 
 // refatorar pra getCollection
