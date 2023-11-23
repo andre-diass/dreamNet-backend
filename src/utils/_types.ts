@@ -9,7 +9,7 @@ export interface IProduct {
 }
 
 export interface ICategory {
-  category: string;
+  name: string;
   userId: string;
 }
 

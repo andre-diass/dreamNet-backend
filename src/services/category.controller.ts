@@ -13,4 +13,14 @@ export class CategoryController {
     const result = await this.categoryRepository.getCategories(userID);
     return result;
   };
+
+  updateCategory = async (categoryObj: Partial<ICategory>, categoryID: string): Promise<ICategory | null> => {
+    const result = await this.categoryRepository.updateCategory(categoryObj, categoryID);
+    return result;
+  };
+
+  deleteCategory = async (categoryID: string | undefined): Promise<ICategory> => {
+    const result = await this.categoryRepository.deleteCategory(categoryID);
+    return result;
+  };
 }
