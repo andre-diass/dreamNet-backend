@@ -31,8 +31,8 @@ provider:
             - arn:aws:s3:::upload-png-4567/*
 # functions
 functions:
-  authorize:
-    handler: src/functions/users/authorize.handler
+  #authorize:
+  #handler: src/functions/users/authorize.handler
   getProducts:
     handler: src/functions/products/getProducts.handler
     events:
@@ -74,12 +74,27 @@ functions:
       - http:
           path: serverless/addCategory
           method: post
+
   getCategories:
     handler: src/functions/categories/getCategories.handler
     events:
       - http:
           path: serverless/getCategories/{userId}
           method: get
+
+  updateCategory:
+    handler: src/functions/categories/updateCategory.handler
+    events:
+      - http:
+          path: serverless/updateCategory/{categoryId}
+          method: put
+
+  deleteCategory:
+    handler: src/functions/categories/deleteCategory.handler
+    events:
+      - http:
+          path: serverless/deleteCategory/{categoryId}
+          method: delete
   login:
     handler: src/functions/users/login.handler
     events:
