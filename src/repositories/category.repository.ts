@@ -12,8 +12,25 @@ export default class CategoryRepository {
   };
 
   getCategories = async (userID: string | undefined): Promise<ICategory[]> => {
-    const productModel = await this.db.getModel();
-    const result = await productModel.find({ userId: userID }).exec();
+    const categoryModel = await this.db.getModel();
+    const result = await categoryModel.find({ userId: userID }).exec();
+    return result;
+  };
+
+  updateCategory = async (categoryObj: Partial<ICategory>, categoryID: string): Promise<ICategory | null> => {
+    const categoryModel = await this.db.getModel();
+    const result = await categoryModel.findByIdAndUpdate({ _id: categoryID }, categoryObj, {
+      new: true,
+    });
+    if (!result) {
+      return null;
+    }
+    return result;
+  };
+
+  deleteCategory = async (categoryID: string | undefined): Promise<ICategory> => {
+    const categoryModel = await this.db.getModel();
+    const result = (await categoryModel.findByIdAndDelete({ _id: categoryID })) as ICategory;
     return result;
   };
 }

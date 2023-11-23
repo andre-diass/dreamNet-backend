@@ -8,9 +8,9 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   const requestBody = event.body || '{}';
-  const { category, userId } = JSON.parse(requestBody);
+  const { name, userId } = JSON.parse(requestBody);
   const categoryObj: ICategory = {
-    category,
+    name,
     userId,
   };
   const categoryController = new CategoryController();
