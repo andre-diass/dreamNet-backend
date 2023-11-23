@@ -6,6 +6,7 @@ export interface IProduct {
   price: string;
   userId: string;
   imageLinks: Array<string>;
+  category: string;
 }
 
 export interface ICategory {

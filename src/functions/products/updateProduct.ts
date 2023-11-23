@@ -7,13 +7,14 @@ import { ClientErrorCodes, SuccessfullCodes } from '../../utils/statusCode';
 export const handler: APIGatewayProxyHandler = async (event, context) => {
   const productId = event.queryStringParameters?.productId as string;
   const requestBody = event.body || '{}';
-  const { name, description, price, imageLinks } = JSON.parse(requestBody);
+  const { name, description, price, imageLinks, category } = JSON.parse(requestBody);
 
   const productObj: Partial<IProduct> = {
     name,
     description,
     price,
     imageLinks,
+    category,
   };
   const product = new ProductController();
 
