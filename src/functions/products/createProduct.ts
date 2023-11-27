@@ -1,20 +1,21 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
-import { ProductController } from '../controllers/product.controller';
-import { IProduct } from '../utils/_types';
-import buildResponse from '../utils/buildResponse';
-import { SuccessfullCodes, ClientErrorCodes } from '../utils/statusCode';
+import { ProductController } from '../../services/product.controller';
+import { IProduct } from '../../utils/_types';
+import buildResponse from '../../utils/buildResponse';
+import { SuccessfullCodes, ClientErrorCodes } from '../../utils/statusCode';
 
 export const handler: APIGatewayProxyHandler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   const requestBody = event.body || '{}';
-  const { name, description, price, userId, imageLinks } = JSON.parse(requestBody);
+  const { name, description, price, userId, imageLinks, category } = JSON.parse(requestBody);
   const productObj: IProduct = {
     name,
     description,
     price,
     userId,
     imageLinks,
+    category,
   };
   const product = new ProductController();
 

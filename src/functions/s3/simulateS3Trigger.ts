@@ -1,9 +1,9 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import axios from 'axios';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-import buildResponse from '../utils/buildResponse';
-import createLocalS3Client from '../utils/createLocalS3client';
-import { ClientErrorCodes, SuccessfullCodes } from '../utils/statusCode';
+import buildResponse from '../../utils/buildResponse';
+import createLocalS3Client from '../../utils/createLocalS3client';
+import { ClientErrorCodes, SuccessfullCodes } from '../../utils/statusCode';
 
 export async function makeUploadToBucket(imageUrl: string, fileName: string): Promise<void> {
   // const client = createLocalS3Client();

@@ -20,6 +20,7 @@ provider:
   name: aws
   runtime: nodejs18.x
   region: us-west-1
+  timeout: 30
   iam:
     role:
       statements:
@@ -30,45 +31,84 @@ provider:
             - arn:aws:s3:::upload-png-4567/*
 # functions
 functions:
+  #authorize:
+  #handler: src/functions/users/authorize.handler
   getProducts:
-    handler: src/functions/getProducts.handler
+    handler: src/functions/products/getProducts.handler
     events:
       - http:
           path: serverless/getProducts
           method: get
+
   getProduct:
-    handler: src/functions/getProduct.handler
+    handler: src/functions/products/getProduct.handler
     events:
       - http:
           path: serverless/getProduct
           method: get
+
   createProduct:
-    handler: src/functions/createProduct.handler
+    handler: src/functions/products/createProduct.handler
     events:
       - http:
           path: serverless/createProduct
           method: post
+
   updateProduct:
-    handler: src/functions/updateProduct.handler
+    handler: src/functions/products/updateProduct.handler
     events:
       - http:
           path: serverless/updateProduct
           method: put
+
   deleteProduct:
-    handler: src/functions/deleteProduct.handler
+    handler: src/functions/products/deleteProduct.handler
     events:
       - http:
           path: serverless/deleteProduct
           method: delete
+
   addCategory:
-    handler: src/functions/addCategory.handler
+    handler: src/functions/categories/addCategory.handler
     events:
       - http:
           path: serverless/addCategory
           method: post
 
+  getCategories:
+    handler: src/functions/categories/getCategories.handler
+    events:
+      - http:
+          path: serverless/getCategories/{userId}
+          method: get
+
+  updateCategory:
+    handler: src/functions/categories/updateCategory.handler
+    events:
+      - http:
+          path: serverless/updateCategory/{categoryId}
+          method: put
+
+  deleteCategory:
+    handler: src/functions/categories/deleteCategory.handler
+    events:
+      - http:
+          path: serverless/deleteCategory/{categoryId}
+          method: delete
+  login:
+    handler: src/functions/users/login.handler
+    events:
+      - http:
+          path: serverless/login
+          method: get
+  getUser:
+    handler: src/functions/users/getUser.handler
+    events:
+      - http:
+          path: serverless/user/{email}
+          method: get
   s3Test:
-    handler: src/functions/s3Function.handler
+    handler: src/functions/s3/s3Function.handler
     events:
       - s3:
           bucket: upload-png-4567
@@ -76,7 +116,7 @@ functions:
           rules:
             - suffix: .png
   simulateS3Trigger:
-    handler: src/functions/simulateS3Trigger.handler
+    handler: src/functions/s3/simulateS3Trigger.handler
     events:
       - http:
           path: serverless/triggerS3
