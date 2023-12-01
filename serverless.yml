@@ -1,38 +1,15 @@
-service: serverlessSetup
-
-resources:
-  extensions:
-    S3BucketUploadpng4567:
-      Properties:
-        CorsConfiguration:
-          CorsRules:
-            - AllowedMethods:
-                - POST
-                - PUT
-                - GET
-                - HEAD
-              AllowedOrigins:
-                - '*'
-              AllowedHeaders:
-                - '*'
+service: serverlessBackend
 
 provider:
   name: aws
   runtime: nodejs18.x
   region: us-west-1
+  stage: "${opt:stage, 'lcl'}"
   timeout: 30
-  iam:
-    role:
-      statements:
-        - Effect: Allow
-          Action:
-            - s3:GetObject
-          Resource:
-            - arn:aws:s3:::upload-png-4567/*
-# functions
+
 functions:
-  #authorize:
-  #handler: src/functions/users/authorize.handler
+  # authorize:
+  #   handler: src/functions/users/authorize.handler
   getProducts:
     handler: src/functions/products/getProducts.handler
     events:
@@ -107,20 +84,7 @@ functions:
       - http:
           path: serverless/user/{email}
           method: get
-  s3Test:
-    handler: src/functions/s3/s3Function.handler
-    events:
-      - s3:
-          bucket: upload-png-4567
-          event: s3:ObjectCreated:*
-          rules:
-            - suffix: .png
-  simulateS3Trigger:
-    handler: src/functions/s3/simulateS3Trigger.handler
-    events:
-      - http:
-          path: serverless/triggerS3
-          method: post
+
 # Serverless plugins
 plugins:
   - serverless-plugin-typescript

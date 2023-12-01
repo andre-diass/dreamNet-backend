@@ -1,18 +1,43 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+name: Deploy to AWS
+run-name: ${{ github.actor }} is deploying to AWS 🚀
+on:
+  push:
+    branches:
+      - github-actions-deploy-pipeline
+      - main
+
 jobs:
-  Explore-GitHub-Actions:
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
+
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Install Depedencies
+        id: install-deps
+        run: npm
+
+      - name: Set STAGE variable to dev or prd
         run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+          if [ ${{ github.ref }} = 'refs/heads/github-actions-deploy-pipeline' ]
+          then
+            echo "STAGE=dev" >> $GITHUB_ENV
+          elif [ ${{ github.ref }} = 'refs/heads/main' ]
+          then
+            echo "STAGE=prod" >> $GITHUB_ENV
+          fi
+
+      - name: Deploy Serverless App to AWS
+        id: deploy-serverless-to-aws
+        run: |
+          echo "Deploying to STAGE=$STAGE"
+          npm run serverless deploy --verbose --stage ${{ env.STAGE }}
