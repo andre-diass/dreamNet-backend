@@ -1,6 +1,7 @@
 service: serverlessBackend
 
 provider:
+  environment: ${file(./envs/.env.${opt:stage, 'lcl'}.js)}
   name: aws
   runtime: nodejs18.x
   region: us-west-1
