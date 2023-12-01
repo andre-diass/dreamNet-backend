@@ -40,4 +40,4 @@ jobs:
         id: deploy-serverless-to-aws
         run: |
           echo "Deploying to STAGE=$STAGE"
-          npm run serverless deploy --verbose --stage ${{ env.STAGE }}
+          serverless deploy --stage ${{ env.STAGE }}
