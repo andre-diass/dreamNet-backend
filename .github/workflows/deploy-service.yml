@@ -24,7 +24,7 @@ jobs:
 
       - name: Install Depedencies
         id: install-deps
-        run: npm
+        run: npm install
 
       - name: Set STAGE variable to dev or prd
         run: |
