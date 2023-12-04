@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is deploying to AWS 🚀
 on:
   push:
     branches:
-      - configure-webpacl
+      - configure-webpack
       - main
 
 jobs:
