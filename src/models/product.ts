@@ -6,6 +6,7 @@ export interface IProduct extends Document {
   price: string;
   userId: string;
   imageLinks: Array<string>;
+  category: string;
 }
 
 export const ProductSchema: Schema<IProduct> = new mongoose.Schema({
@@ -30,6 +31,7 @@ export const ProductSchema: Schema<IProduct> = new mongoose.Schema({
   imageLinks: {
     type: [String],
   },
+  category: { type: String },
 });
 
 // export const Product: Model<IProduct> = mongoose.model<IProduct>('Product', ProductSchema);

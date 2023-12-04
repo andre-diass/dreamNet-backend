@@ -1,16 +1,17 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
-import { CategoryController } from '../controllers/category.controller';
-import { ICategory } from '../utils/_types';
-import buildResponse from '../utils/buildResponse';
-import { SuccessfullCodes, ClientErrorCodes } from '../utils/statusCode';
+import { CategoryController } from '../../services/category.controller';
+import { ICategory } from '../../utils/_types';
+import buildResponse from '../../utils/buildResponse';
+import { SuccessfullCodes, ClientErrorCodes } from '../../utils/statusCode';
 
 export const handler: APIGatewayProxyHandler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   const requestBody = event.body || '{}';
-  const { category } = JSON.parse(requestBody);
+  const { name, userId } = JSON.parse(requestBody);
   const categoryObj: ICategory = {
-    category,
+    name,
+    userId,
   };
   const categoryController = new CategoryController();
 
