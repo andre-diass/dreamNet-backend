@@ -28,7 +28,7 @@ jobs:
 
       - name: Set STAGE variable to dev or prod
         run: |
-          if [ ${{ github.ref }} = 'refs/heads/github-actions-deploy-pipeline' ]
+          if [ ${{ github.ref }} = 'refs/heads/configure-webpack' ]
           then
             echo "STAGE=dev" >> $GITHUB_ENV
           elif [ ${{ github.ref }} = 'refs/heads/main' ]
