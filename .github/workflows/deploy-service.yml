@@ -1,0 +1,43 @@
+name: Deploy to AWS
+run-name: ${{ github.actor }} is deploying to AWS 🚀
+on:
+  push:
+    branches:
+      - dev
+      - main
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Install Depedencies
+        id: install-deps
+        run: npm install
+
+      - name: Set STAGE variable to dev or prod
+        run: |
+          if [ ${{ github.ref }} = 'refs/heads/github-actions-deploy-pipeline' ]
+          then
+            echo "STAGE=dev" >> $GITHUB_ENV
+          elif [ ${{ github.ref }} = 'refs/heads/main' ]
+          then
+            echo "STAGE=prod" >> $GITHUB_ENV
+          fi
+
+      - name: Deploy Serverless App to AWS
+        id: deploy-serverless-to-aws
+        run: |
+          echo "Deploying to STAGE=$STAGE"
+          npx serverless deploy --verbose --stage ${{ env.STAGE }}
