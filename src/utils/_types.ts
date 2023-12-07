@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import mongoose from 'mongoose';
 
 export interface IProduct {
@@ -12,12 +13,4 @@ export interface IProduct {
 export interface ICategory {
   name: string;
   userId: string;
-}
-
-export interface IUser {
-  _id: mongoose.Types.ObjectId | null;
-  name: string;
-  image: string;
-  emailVerified: string | null;
-  email: string;
 }
