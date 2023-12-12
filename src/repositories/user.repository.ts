@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import { UserSchema, AccountSchema, IUser, IAccount } from '../models/user';
 import MongoConnection from '../database/db';
 
@@ -8,7 +9,7 @@ export default class CategoryRepository {
 
   getUser = async (userID: string): Promise<IUser | null> => {
     const userCol = await this.usersConn.getModel();
-    const result = await userCol.findOne({ _id: userID });
+    const result = await userCol.findOne({ _id: new ObjectId(userID) });
 
     return result;
   };

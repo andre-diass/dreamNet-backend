@@ -12,6 +12,15 @@ export class UserService {
     const userInfo = await this.userRepository.getUser(userID);
     const account = await this.userRepository.getAccount(accountID);
 
+    if (userInfo === null || account === null) {
+      return {
+        error: {
+          status: ClientErrorCodes.NotFound,
+          apiErrorType: 'User:NotFound',
+        },
+      };
+    }
+
     const token = this.generateToken(userInfo?.name, userInfo?.email);
     console.log(`JWT issued: ${token}`);
     return token;
