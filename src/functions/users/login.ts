@@ -9,8 +9,9 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
   const { userID, accountID } = await userLoginSchema.validateAsync(JSON.parse(event.body as string) || {});
   const user = new UserService();
 
-  const result = user.login(userID, accountID);
+  const result = await user.login(accountID, userID);
+  console.log(result);
 
-  const response = buildResponse.buildSuccessfullResponse(SuccessfullCodes.Created, result);
+  const response = buildResponse.buildSuccessfullResponse(SuccessfullCodes.OK, result);
   return response;
 };

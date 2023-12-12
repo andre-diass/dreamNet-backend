@@ -14,3 +14,8 @@ export interface ICategory {
   name: string;
   userId: string;
 }
+
+export interface TokenPayload {
+  name: string;
+  email: string;
+}

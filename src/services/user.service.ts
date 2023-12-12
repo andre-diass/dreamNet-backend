@@ -3,19 +3,16 @@ import jwt from 'jsonwebtoken';
 import { ClientErrorCodes } from '../utils/statusCode';
 import { IUser } from '../models/user';
 import UserRepository from '../repositories/user.repository';
+import { TokenPayload } from '../utils/_types';
 
 export class UserService {
   private userRepository = new UserRepository();
 
-  // eslint-disable-next-line consistent-return
   login = async (accountID: string, userID: string) => {
     const userInfo = await this.userRepository.getUser(userID);
-
     const account = await this.userRepository.getAccount(accountID);
 
-    console.log(userInfo, account);
-
-    const token = jwt.sign({ id: 23 }, process.env.JWTSECRET);
+    const token = this.generateToken(userInfo?.name, userInfo?.email);
     console.log(`JWT issued: ${token}`);
     return token;
   };
@@ -25,4 +22,15 @@ export class UserService {
 
     return result;
   };
+
+  // eslint-disable-next-line class-methods-use-this
+  private generateToken(userName, userEmail) {
+    const payload: TokenPayload = {
+      name: userName,
+      email: userEmail,
+    };
+
+    const token = jwt.sign(payload, process.env.JWTSECRET);
+    return token;
+  }
 }
