@@ -26,7 +26,7 @@ export const handler = async (event, _context, callback) => {
   if (!token) return callback(null, 'Unauthorized');
 
   // verifies secret and checks exp
-  jwt.verify(token, 'ssshhh', (err, decoded) => {
+  jwt.verify(token, process.env.JWTSECRET, (err, decoded) => {
     if (err) return callback(null, 'Unauthorized');
 
     // if everything is good, save to request for use in other routes

@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is deploying to AWS 🚀
 on:
   push:
     branches:
-      - dev
+      - development
       - main
 
 jobs:
@@ -28,7 +28,7 @@ jobs:
 
       - name: Set STAGE variable to dev or prod
         run: |
-          if [ ${{ github.ref }} = 'refs/heads/github-actions-deploy-pipeline' ]
+          if [ ${{ github.ref }} = 'refs/heads/development' ]
           then
             echo "STAGE=dev" >> $GITHUB_ENV
           elif [ ${{ github.ref }} = 'refs/heads/main' ]

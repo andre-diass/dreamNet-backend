@@ -78,13 +78,13 @@ functions:
     events:
       - http:
           path: serverless/login
-          method: get
+          method: post
   getUser:
     handler: src/functions/users/getUser.handler
     events:
       - http:
-          path: serverless/user/{email}
-          method: get
+          path: serverless/user
+          method: post
 
 # Serverless plugins
 plugins:

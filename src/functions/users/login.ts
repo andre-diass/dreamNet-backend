@@ -1,14 +1,20 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
-import jwt from 'jsonwebtoken';
+import { UserService } from '../../services/user.service';
 import buildResponse from '../../utils/buildResponse';
-import { SuccessfullCodes } from '../../utils/statusCode';
+import { ClientErrorCodes, SuccessfullCodes } from '../../utils/statusCode';
+import { userLoginSchema } from '../../validations/userLogin';
 
-export const handler: APIGatewayProxyHandler = async (event, context) => {
-  const secret = 'ssshhh';
+export const handler: APIGatewayProxyHandler = async event => {
+  const { userID, accountID } = await userLoginSchema.validateAsync(JSON.parse(event.body as string) || {});
+  const user = new UserService();
 
-  const token = jwt.sign({ id: 23 }, secret);
-  console.log(`JWT issued: ${token}`);
+  const result = await user.login(accountID, userID);
 
-  const response = buildResponse.buildSuccessfullResponse(SuccessfullCodes.Created, token);
+  if (result.error) {
+    const response = buildResponse.buildErrorResponse(ClientErrorCodes.NotFound, 'NotFound');
+    return response;
+  }
+
+  const response = buildResponse.buildSuccessfullResponse(SuccessfullCodes.OK, result);
   return response;
 };

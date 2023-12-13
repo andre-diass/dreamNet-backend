@@ -1,13 +1,23 @@
-import { UserSchema } from '../models/user';
+import { ObjectId } from 'mongodb';
+import { UserSchema, AccountSchema, IUser, IAccount } from '../models/user';
 import MongoConnection from '../database/db';
-import { IUser } from '@src/utils/_types';
 
 export default class CategoryRepository {
-  private db = new MongoConnection('users', UserSchema);
+  private usersConn = new MongoConnection('users', UserSchema);
 
-  getUser = async (email: string): Promise<IUser | null> => {
-    const userModel = await this.db.getModel();
-    const result = await userModel.findOne({ email });
+  private accountsConn = new MongoConnection('account', AccountSchema);
+
+  getUser = async (userID: string): Promise<IUser | null> => {
+    const userCol = await this.usersConn.getModel();
+    const result = await userCol.findOne({ _id: new ObjectId(userID) });
+
+    return result;
+  };
+
+  getAccount = async (accountID: string): Promise<IAccount | null> => {
+    const userCol = await this.accountsConn.getModel();
+    const result = await userCol.findOne({ providerAccountId: accountID });
+
     return result;
   };
 }
