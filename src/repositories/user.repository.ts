@@ -14,6 +14,13 @@ export default class CategoryRepository {
     return result;
   };
 
+  getUserByEmail = async (email: string): Promise<IUser | null> => {
+    const userCol = await this.usersConn.getModel();
+    const result = await userCol.findOne({ email });
+
+    return result;
+  };
+
   getAccount = async (accountID: string): Promise<IAccount | null> => {
     const userCol = await this.accountsConn.getModel();
     const result = await userCol.findOne({ providerAccountId: accountID });

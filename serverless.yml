@@ -83,8 +83,8 @@ functions:
     handler: src/functions/users/getUser.handler
     events:
       - http:
-          path: serverless/user
-          method: post
+          path: serverless/user/{email}
+          method: get
 
 # Serverless plugins
 plugins:

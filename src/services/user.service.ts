@@ -26,8 +26,8 @@ export class UserService {
     return token;
   };
 
-  getUser = async (userID: string): Promise<IUser | null> => {
-    const result = await this.userRepository.getUser(userID);
+  getUserByEmail = async (email: string): Promise<IUser | null> => {
+    const result = await this.userRepository.getUserByEmail(email);
 
     return result;
   };

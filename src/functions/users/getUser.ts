@@ -5,11 +5,12 @@ import { ClientErrorCodes, SuccessfullCodes } from '../../utils/statusCode';
 import { userLoginSchema } from '../../validations/userLogin';
 
 export const handler = async (_event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const { userID, accountID } = await userLoginSchema.validateAsync(JSON.parse(_event.body as string) || {});
+  const email = _event.pathParameters?.email as string;
   const user = new UserService();
+  console.log(email);
 
   try {
-    const result = await user.getUser(userID);
+    const result = await user.getUserByEmail(email);
 
     const response = buildResponse.buildSuccessfullResponse(SuccessfullCodes.OK, result);
     return response;
