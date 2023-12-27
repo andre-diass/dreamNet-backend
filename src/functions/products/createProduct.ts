@@ -16,11 +16,13 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
     userId,
     imageLinks,
     category,
+    createdAt: new Date(),
   };
   const product = new ProductController();
 
   try {
     const result = await product.createProduct(productObj);
+
     const response = buildResponse.buildSuccessfullResponse(SuccessfullCodes.Created, result);
     return response;
   } catch (error) {

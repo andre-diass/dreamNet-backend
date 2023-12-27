@@ -16,6 +16,7 @@ export class ProductController {
 
   createProduct = async (productObj: IProduct): Promise<IProduct> => {
     const result = await this.productRepository.createProduct(productObj);
+
     return result;
   };
 

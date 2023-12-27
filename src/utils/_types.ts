@@ -1,7 +1,10 @@
 /* eslint-disable camelcase */
 import mongoose from 'mongoose';
 
-export interface IProduct {
+export type Timestamp = {
+  createdAt: Date;
+};
+export interface IProduct extends Timestamp {
   name: string;
   description: string;
   price: string;
