@@ -60,7 +60,7 @@ A estrutura deste projeto está descrita abaixo:
 | **node_modules**      | Contém todas as dependências npm.                                                               |
 | **src**               | Contém o código-fonte que será compilado para o diretório de build.                             |
 | **src/database**      | Configuração da aplicação para o banco de dados. Uma fábrica para conexão com um cluster Mongo. |
-| **src/functions**     | Representa o controlador. Cada função é um Lambda.                                              |
+| **src/functions**     | Representa o controller. Cada função é um Lambda.                                              |
 | **src/models**        | Entidades do projeto. Os modelos definem esquemas que serão usados para armazenar e recuperar dados do banco de dados da aplicação. |
 | **src/repositories**  | Contém classes relacionadas à persistência de dados.                                            |
 | **src/services**      | Contém classes relacionadas à lógica de negócios.                                               |
