@@ -4,7 +4,7 @@
 ---
 
 <p align="center"> 
-Este projeto tem como objetivo o desenvolvimento de uma API Rest para o CRUD de recursos e 
+Este projeto tem como objetivo o desenvolvimento de um microserviço e 
 cumprimento de requisitos não funcionais, como facilidade de escalabilidade da aplicação, resiliência e baixo custo operacional do ambiente em produção, através de infraestrutura como código 
 para provisionamento da infraestrutura de cloud (AWS). O projeto tem arquiterura cliente - servidor. A camada de apresentação que consome a API está disponível neste repositório: 
 https://github.com/andre-diass/store-admin
