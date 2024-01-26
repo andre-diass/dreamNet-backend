@@ -102,6 +102,15 @@ functions:
       - http:
           path: serverless/user/{email}
           method: get
+  acessoConsumer:
+    handler: src/functions/consumers/acessoConsumer.handler
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - FilaAcessos
+              - Arn
+          batchSize: 1
 
 # Serverless plugins
 plugins:
