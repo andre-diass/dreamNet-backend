@@ -7,6 +7,23 @@ provider:
   region: us-west-1
   stage: "${opt:stage, 'lcl'}"
   timeout: 30
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - sqs:*
+          Resource:
+            Fn::GetAtt: [FilaAcessos, Arn]
+
+resources:
+  Resources:
+    FilaAcessos:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: acesso.fifo
+        FifoQueue: true
+        SqsManagedSseEnabled: false
 
 functions:
   # authorize:
