@@ -16,6 +16,7 @@ https://github.com/andre-diass/store-admin
 - [Estrutura do Projeto](#project_structure)
 - [Layout](#layout)
 - [Arquitetura do Back-end](#system_architecture)
+- [Contexto da solução](#solution_context)
 - [Requisitos Funcionais](#functionalities)
 - [Requisitos Não Funcionais](#non_functional_requirements)
 - [Diagrama de Caso de Uso](#use_case_diagram)
@@ -76,6 +77,8 @@ O layout dessa aplicação(front-end), está disponível em: <a href="https://ww
 ## 💻 Arquitetura do back-end <a name = "system_architecture"></a>
 ![Alt text](https://upload-png-4567.s3.us-west-1.amazonaws.com/Cloud+Formation+(8).jpg)
 
+## Contexto da solução <a name = "solution_context"></a>
+O ecossistema Amazônia tem uma venda anual de $404,4 bilhões. Englobando setor da agricultura e florestas. A aplicação em questão tem como objetivo integrar produtos desse ecossistema ao mercado exterior, através de uma plataforma de marketplace simples, direta e confiavél.
 
 ## Requisitos Funcionais <a name = "functionalities"></a>
 
