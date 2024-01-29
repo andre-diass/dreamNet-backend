@@ -24,7 +24,20 @@ resources:
         QueueName: acesso.fifo
         FifoQueue: true
         SqsManagedSseEnabled: false
-
+        RedrivePolicy:
+          deadletterTargetArn:
+            Fn::GetAtt:
+              - DlqAcessos
+              - Arn
+          maxReceiveCount: 5
+        VisibilityTimeOut: 10
+    DlqAcessos:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: acesso-dlq.fifo
+        FifoQueue: true
+        SqsManagedSseEnabled: false
+        MessageRetentionPeriod: 86400
 functions:
   # authorize:
   #   handler: src/functions/users/authorize.handler
@@ -111,6 +124,7 @@ functions:
               - FilaAcessos
               - Arn
           batchSize: 1
+    timeout: 2
 
 # Serverless plugins
 plugins:
