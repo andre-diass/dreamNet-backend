@@ -30,7 +30,7 @@ resources:
         FifoQueue: true
         SqsManagedSseEnabled: false
         RedrivePolicy:
-          deadletterTargetArn:
+          deadLetterTargetArn:
             Fn::GetAtt:
               - DlqAcessos
               - Arn
@@ -136,6 +136,16 @@ functions:
           arn:
             Fn::GetAtt:
               - FilaAcessos
+              - Arn
+          batchSize: 1
+    timeout: 2
+  emailConsumer:
+    handler: src/functions/consumers/emailConsumer.handler
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - FilaEmail
               - Arn
           batchSize: 1
     timeout: 2
