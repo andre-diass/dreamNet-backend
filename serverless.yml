@@ -15,6 +15,11 @@ provider:
             - sqs:*
           Resource:
             Fn::GetAtt: [FilaAcessos, Arn]
+        - Effect: Allow
+          Action:
+            - sqs:*
+          Resource:
+            Fn::GetAtt: [FilaEmail, Arn]
 
 resources:
   Resources:
@@ -31,6 +36,15 @@ resources:
               - Arn
           maxReceiveCount: 5
         VisibilityTimeout: 10
+
+    FilaEmail:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: filaemail.fifo
+        FifoQueue: true
+        SqsManagedSseEnabled: false
+        VisibilityTimeout: 10
+
     DlqAcessos:
       Type: AWS::SQS::Queue
       Properties:
