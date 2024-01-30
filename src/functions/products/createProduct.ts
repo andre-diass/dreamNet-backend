@@ -24,7 +24,7 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
 
   try {
     const result = await product.createProduct(productObj);
-    await acessoProducer(sourceIP);
+    await acessoProducer('GATILHO DE MENSAGEM PARA O ACESSO PRODUCER');
 
     const response = buildResponse.buildSuccessfullResponse(SuccessfullCodes.Created, result);
     return response;

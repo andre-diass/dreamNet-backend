@@ -5,10 +5,10 @@ import crypto from 'crypto';
 const client = new SQSClient({ region: 'us-west-1' });
 
 // eslint-disable-next-line consistent-return
-export async function acessoProducer(objIP) {
+export async function acessoProducer(objMsg) {
   const input = {
     QueueUrl: 'https://sqs.us-west-1.amazonaws.com/202260806763/acesso.fifo',
-    MessageBody: JSON.stringify(objIP),
+    MessageBody: JSON.stringify(objMsg),
     DelaySeconds: 0,
     MessageDeduplicationId: crypto.randomUUID(),
     MessageGroupId: 'acesso',

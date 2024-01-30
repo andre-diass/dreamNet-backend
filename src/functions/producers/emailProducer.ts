@@ -7,7 +7,7 @@ const client = new SQSClient({ region: 'us-west-1' });
 // eslint-disable-next-line consistent-return
 export async function emailProducer(objIP) {
   const input = {
-    QueueUrl: 'https://sqs.us-west-1.amazonaws.com/202260806763/acesso.fifo',
+    QueueUrl: 'https://sqs.us-west-1.amazonaws.com/202260806763/filaemail.fifo',
     MessageBody: JSON.stringify(objIP),
     DelaySeconds: 0,
     MessageDeduplicationId: crypto.randomUUID(),
