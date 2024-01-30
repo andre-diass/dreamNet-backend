@@ -30,7 +30,7 @@ resources:
               - DlqAcessos
               - Arn
           maxReceiveCount: 5
-        VisibilityTimeOut: 10
+        VisibilityTimeout: 10
     DlqAcessos:
       Type: AWS::SQS::Queue
       Properties:
