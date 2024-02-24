@@ -24,7 +24,7 @@ export default class MongoConnection<T> {
 
   async getModel() {
     await connectDatabase();
-    const model = mongoose.model(this.modelName, this.schema);
-    return model;
+    const collection = mongoose.model(this.modelName, this.schema);
+    return collection;
   }
 }
