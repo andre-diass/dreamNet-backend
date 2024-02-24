@@ -19,7 +19,10 @@ export default class ProductRepository {
 
   createProduct = async (productObj: IProduct): Promise<IProduct> => {
     const productModel = await this.db.getModel();
+    console.log(productObj);
+
     const result = await productModel.create(productObj);
+    console.log('re', result);
     return result;
   };
 

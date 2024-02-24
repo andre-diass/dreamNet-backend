@@ -1,6 +1,10 @@
+/* eslint-disable camelcase */
 import mongoose from 'mongoose';
 
-export interface IProduct {
+export type Timestamp = {
+  createdAt: Date;
+};
+export interface IProduct extends Timestamp {
   name: string;
   description: string;
   price: string;
@@ -14,10 +18,7 @@ export interface ICategory {
   userId: string;
 }
 
-export interface IUser {
-  _id: mongoose.Types.ObjectId | null;
+export interface TokenPayload {
   name: string;
-  image: string;
-  emailVerified: string | null;
   email: string;
 }

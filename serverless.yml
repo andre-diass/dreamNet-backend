@@ -7,7 +7,51 @@ provider:
   region: us-west-1
   stage: "${opt:stage, 'lcl'}"
   timeout: 30
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - sqs:*
+          Resource:
+            Fn::GetAtt: [FilaAcessos, Arn]
+        - Effect: Allow
+          Action:
+            - sqs:*
+          Resource:
+            Fn::GetAtt: [FilaEmail, Arn]
 
+resources:
+  Resources:
+    FilaAcessos:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: acesso.fifo
+        FifoQueue: true
+        SqsManagedSseEnabled: false
+        RedrivePolicy:
+          deadLetterTargetArn:
+            Fn::GetAtt:
+              - DlqAcessos
+              - Arn
+          maxReceiveCount: 5
+        VisibilityTimeout: 10
+
+    FilaEmail:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: filaemail.fifo
+        FifoQueue: true
+        SqsManagedSseEnabled: false
+        VisibilityTimeout: 10
+
+    DlqAcessos:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: acesso-dlq.fifo
+        FifoQueue: true
+        SqsManagedSseEnabled: false
+        MessageRetentionPeriod: 86400
 functions:
   # authorize:
   #   handler: src/functions/users/authorize.handler
@@ -78,13 +122,33 @@ functions:
     events:
       - http:
           path: serverless/login
-          method: get
+          method: post
   getUser:
     handler: src/functions/users/getUser.handler
     events:
       - http:
           path: serverless/user/{email}
           method: get
+  acessoConsumer:
+    handler: src/functions/consumers/acessoConsumer.handler
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - FilaAcessos
+              - Arn
+          batchSize: 1
+    timeout: 2
+  emailConsumer:
+    handler: src/functions/consumers/emailConsumer.handler
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - FilaEmail
+              - Arn
+          batchSize: 1
+    timeout: 2
 
 # Serverless plugins
 plugins:
